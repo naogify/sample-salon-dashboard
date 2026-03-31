@@ -43,11 +43,24 @@ jobs:
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Run Claude Code
+        id: claude
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         timeout-minutes: 10
+        continue-on-error: true
         run: |
           claude --dangerously-skip-permissions --model sonnet --max-turns 20 -p "${{ steps.context.outputs.prompt }}" < /dev/null
+
+      - name: Notify on Claude Code failure
+        if: steps.claude.outcome == 'failure'
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          curl -s -X POST "${{ secrets.WORKERS_URL }}/api/notify" \
+            -H "Content-Type: application/json" \
+            -H "x-notify-secret: ${{ secrets.NOTIFY_SECRET }}" \
+            -d "{\"type\":\"error\",\"issueNumber\":${ISSUE_NUMBER},\"errorMessage\":\"AI processing failed\"}"
+          exit 1
 
       - name: Create or update PR
         id: pr
