@@ -1,4 +1,4 @@
-import type { Staff, MenuItem, Customer, Reservation } from "./types";
+import type { Staff, MenuItem, Customer, Reservation, Source, TreatmentSpace } from "./types";
 
 export const staffList: Staff[] = [
   {
