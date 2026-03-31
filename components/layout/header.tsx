@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Store } from "lucide-react";
+import { Store, Menu } from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
 
 function getPageTitle(pathname: string): string {
@@ -12,16 +12,24 @@ function getPageTitle(pathname: string): string {
   return item?.label ?? "";
 }
 
-export function Header() {
+export function Header({ onMenuToggle }: { onMenuToggle: () => void }) {
   const pathname = usePathname();
   const title = getPageTitle(pathname);
 
   return (
-    <header className="h-16 bg-card border-b border-border flex items-center justify-between px-6">
-      <h1 className="text-lg font-bold text-foreground">{title}</h1>
+    <header className="h-16 bg-card border-b border-border flex items-center justify-between px-4 lg:px-6">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={onMenuToggle}
+          className="p-1.5 rounded-lg hover:bg-muted transition-colors lg:hidden"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+        <h1 className="text-lg font-bold text-foreground">{title}</h1>
+      </div>
 
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 px-3 py-1.5 border border-border rounded-lg text-sm text-muted-foreground">
+        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 border border-border rounded-lg text-sm text-muted-foreground">
           <Store className="h-4 w-4" />
           <span>all</span>
         </div>

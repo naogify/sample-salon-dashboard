@@ -33,7 +33,7 @@ export function StaffKpiTable({
     .sort((a, b) => b.totalSales - a.totalSales)[0]?.staffId;
 
   return (
-    <div className="bg-card rounded-xl border border-border p-5">
+    <div className="bg-card rounded-xl border border-border p-5 overflow-x-auto">
       <h3 className="text-base font-bold mb-4">スタッフ別KPI</h3>
       <Table>
         <TableHeader>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Sidebar } from "@/components/layout/sidebar";
-import { Header } from "@/components/layout/header";
+import { LayoutShell } from "@/components/layout/layout-shell";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,11 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className="bg-background text-foreground antialiased">
-        <Sidebar />
-        <div className="ml-60 min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-1 p-6">{children}</main>
-        </div>
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );
