@@ -151,49 +151,23 @@ jobs:
           fi
           exit 1
 
-      - name: Wait for Cloudflare Pages deploy preview
+      - name: Deploy preview to Cloudflare Pages
         if: steps.build.outcome == 'success' && steps.pr.outputs.has_changes == 'true'
         id: preview
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ steps.pr.outputs.pr_number }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          echo "Waiting for Cloudflare Pages deploy preview..."
-          BRANCH="feedback/issue-${{ github.event.issue.number }}"
-          HEAD_SHA=$(git rev-parse HEAD)
-
-          for i in $(seq 1 20); do
-            sleep 15
-            # Check deployment statuses on the commit
-            PREVIEW_URL=$(gh api "repos/${{ github.repository }}/commits/${HEAD_SHA}/statuses" \
-              --jq '[.[] | select(.target_url != null and (.target_url | contains("pages.dev")))] | .[0].target_url' 2>/dev/null)
-
-            if [ -n "${PREVIEW_URL}" ] && [ "${PREVIEW_URL}" != "null" ]; then
-              echo "Found preview URL: ${PREVIEW_URL}"
-              echo "url=${PREVIEW_URL}" >> $GITHUB_OUTPUT
-              exit 0
-            fi
-
-            # Also check deployments API
-            PREVIEW_URL=$(gh api "repos/${{ github.repository }}/deployments?ref=${BRANCH}" \
-              --jq '[.[] | select(.environment | contains("preview") or contains("Production"))] | .[0].id' 2>/dev/null)
-
-            if [ -n "${PREVIEW_URL}" ] && [ "${PREVIEW_URL}" != "null" ]; then
-              ENV_URL=$(gh api "repos/${{ github.repository }}/deployments/${PREVIEW_URL}/statuses" \
-                --jq '[.[] | select(.state == "success")] | .[0].environment_url' 2>/dev/null)
-              if [ -n "${ENV_URL}" ] && [ "${ENV_URL}" != "null" ]; then
-                echo "Found preview URL from deployments: ${ENV_URL}"
-                echo "url=${ENV_URL}" >> $GITHUB_OUTPUT
-                exit 0
-              fi
-            fi
-
-            echo "Waiting... (${i}/20)"
-          done
-
-          # Fallback to PR URL
-          echo "Deploy preview not found, using PR URL"
-          echo "url=https://github.com/${{ github.repository }}/pull/${PR_NUMBER}" >> $GITHUB_OUTPUT
+          BRANCH="feedback/issue-${ISSUE_NUMBER}"
+          DEPLOY_OUTPUT=$(npx wrangler pages deploy out --project-name sample-salon-dashboard --branch "${BRANCH}" 2>&1)
+          echo "${DEPLOY_OUTPUT}"
+          PREVIEW_URL=$(echo "${DEPLOY_OUTPUT}" | grep -oP 'https://[a-z0-9]+\.sample-salon-dashboard\.pages\.dev')
+          if [ -n "${PREVIEW_URL}" ]; then
+            echo "url=${PREVIEW_URL}" >> $GITHUB_OUTPUT
+          else
+            echo "url=https://github.com/${{ github.repository }}/pull/${{ steps.pr.outputs.pr_number }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Notify Workers with preview URL
         if: steps.build.outcome == 'success' && steps.pr.outputs.has_changes == 'true'
