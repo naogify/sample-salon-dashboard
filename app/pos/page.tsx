@@ -12,12 +12,12 @@ type CartItem = { menuItem: MenuItem; quantity: number };
 
 export default function PosPage() {
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState<Category>("まつエク");
+  const [activeCategory, setActiveCategory] = useState<Category | "すべて">("すべて");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const filteredItems = useMemo(() => {
     return menuItems.filter((item) => {
-      const matchesCategory = item.category === activeCategory;
+      const matchesCategory = activeCategory === "すべて" || item.category === activeCategory;
       const matchesSearch = search === "" || item.name.toLowerCase().includes(search.toLowerCase());
       return matchesCategory && matchesSearch;
     });

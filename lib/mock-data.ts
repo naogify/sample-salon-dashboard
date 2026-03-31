@@ -266,8 +266,49 @@ export const reservations: Reservation[] = [
   },
 ];
 
-export const dashboardKpi = {
-  today: {
+export type Period = "今日" | "今週" | "今月" | "カスタム";
+
+export const dashboardKpi: Record<Period, {
+  sales: number;
+  salesChange: number;
+  customerCount: number;
+  customerCountChange: number;
+  newCustomerRate: number;
+  newCustomerRateChange: number;
+  avgSpend: number;
+  avgSpendChange: number;
+}> = {
+  今日: {
+    sales: 185200,
+    salesChange: 8.5,
+    customerCount: 22,
+    customerCountChange: 4.2,
+    newCustomerRate: 18.2,
+    newCustomerRateChange: -2.1,
+    avgSpend: 8418,
+    avgSpendChange: 3.8,
+  },
+  今週: {
+    sales: 892400,
+    salesChange: 5.2,
+    customerCount: 104,
+    customerCountChange: 3.1,
+    newCustomerRate: 15.4,
+    newCustomerRateChange: 1.3,
+    avgSpend: 8581,
+    avgSpendChange: 2.0,
+  },
+  今月: {
+    sales: 3456000,
+    salesChange: 12.3,
+    customerCount: 412,
+    customerCountChange: 7.8,
+    newCustomerRate: 16.8,
+    newCustomerRateChange: 0.5,
+    avgSpend: 8388,
+    avgSpendChange: 4.1,
+  },
+  カスタム: {
     sales: 185200,
     salesChange: 8.5,
     customerCount: 22,
@@ -279,50 +320,77 @@ export const dashboardKpi = {
   },
 };
 
-export const staffKpiData = [
-  {
-    staffId: "staff-1",
-    customerCount: 6,
-    newCount: 1,
-    repeatRate: 83.3,
-    avgSpend: 7200,
-    hourlyRevenue: 5400,
-    totalSales: 43200,
-  },
-  {
-    staffId: "staff-2",
-    customerCount: 7,
-    newCount: 1,
-    repeatRate: 85.7,
-    avgSpend: 8900,
-    hourlyRevenue: 7800,
-    totalSales: 62300,
-  },
-  {
-    staffId: "staff-3",
-    customerCount: 0,
-    newCount: 0,
-    repeatRate: 0,
-    avgSpend: 0,
-    hourlyRevenue: 0,
-    totalSales: 0,
-  },
-  {
-    staffId: "staff-4",
-    customerCount: 9,
-    newCount: 2,
-    repeatRate: 77.8,
-    avgSpend: 8850,
-    hourlyRevenue: 8200,
-    totalSales: 79700,
-  },
-];
+export const staffKpiData: Record<Period, {
+  staffId: string;
+  customerCount: number;
+  newCount: number;
+  repeatRate: number;
+  avgSpend: number;
+  hourlyRevenue: number;
+  totalSales: number;
+}[]> = {
+  今日: [
+    { staffId: "staff-1", customerCount: 6, newCount: 1, repeatRate: 83.3, avgSpend: 7200, hourlyRevenue: 5400, totalSales: 43200 },
+    { staffId: "staff-2", customerCount: 7, newCount: 1, repeatRate: 85.7, avgSpend: 8900, hourlyRevenue: 7800, totalSales: 62300 },
+    { staffId: "staff-3", customerCount: 0, newCount: 0, repeatRate: 0, avgSpend: 0, hourlyRevenue: 0, totalSales: 0 },
+    { staffId: "staff-4", customerCount: 9, newCount: 2, repeatRate: 77.8, avgSpend: 8850, hourlyRevenue: 8200, totalSales: 79700 },
+  ],
+  今週: [
+    { staffId: "staff-1", customerCount: 28, newCount: 4, repeatRate: 85.7, avgSpend: 7450, hourlyRevenue: 5800, totalSales: 208600 },
+    { staffId: "staff-2", customerCount: 32, newCount: 5, repeatRate: 84.4, avgSpend: 9200, hourlyRevenue: 8100, totalSales: 294400 },
+    { staffId: "staff-3", customerCount: 0, newCount: 0, repeatRate: 0, avgSpend: 0, hourlyRevenue: 0, totalSales: 0 },
+    { staffId: "staff-4", customerCount: 44, newCount: 7, repeatRate: 84.1, avgSpend: 8850, hourlyRevenue: 8400, totalSales: 389400 },
+  ],
+  今月: [
+    { staffId: "staff-1", customerCount: 108, newCount: 16, repeatRate: 85.2, avgSpend: 7380, hourlyRevenue: 5600, totalSales: 797000 },
+    { staffId: "staff-2", customerCount: 124, newCount: 18, repeatRate: 85.5, avgSpend: 9050, hourlyRevenue: 7900, totalSales: 1122200 },
+    { staffId: "staff-3", customerCount: 0, newCount: 0, repeatRate: 0, avgSpend: 0, hourlyRevenue: 0, totalSales: 0 },
+    { staffId: "staff-4", customerCount: 180, newCount: 35, repeatRate: 80.6, avgSpend: 8530, hourlyRevenue: 8300, totalSales: 1536800 },
+  ],
+  カスタム: [
+    { staffId: "staff-1", customerCount: 6, newCount: 1, repeatRate: 83.3, avgSpend: 7200, hourlyRevenue: 5400, totalSales: 43200 },
+    { staffId: "staff-2", customerCount: 7, newCount: 1, repeatRate: 85.7, avgSpend: 8900, hourlyRevenue: 7800, totalSales: 62300 },
+    { staffId: "staff-3", customerCount: 0, newCount: 0, repeatRate: 0, avgSpend: 0, hourlyRevenue: 0, totalSales: 0 },
+    { staffId: "staff-4", customerCount: 9, newCount: 2, repeatRate: 77.8, avgSpend: 8850, hourlyRevenue: 8200, totalSales: 79700 },
+  ],
+};
 
-export const categorySalesData = [
-  { category: "まつエク" as const, count: 9, amount: 68500, percentage: 37.0 },
-  { category: "ネイル" as const, count: 8, amount: 62000, percentage: 33.5 },
-  { category: "まつげパーマ" as const, count: 5, amount: 27500, percentage: 14.8 },
-  { category: "アイブロウ" as const, count: 3, amount: 19800, percentage: 10.7 },
-  { category: "オプション" as const, count: 5, amount: 4400, percentage: 2.4 },
-  { category: "オフ" as const, count: 1, amount: 3000, percentage: 1.6 },
-];
+export const categorySalesData: Record<Period, {
+  category: "まつエク" | "ネイル" | "まつげパーマ" | "アイブロウ" | "オプション" | "オフ";
+  count: number;
+  amount: number;
+  percentage: number;
+}[]> = {
+  今日: [
+    { category: "まつエク", count: 9, amount: 68500, percentage: 37.0 },
+    { category: "ネイル", count: 8, amount: 62000, percentage: 33.5 },
+    { category: "まつげパーマ", count: 5, amount: 27500, percentage: 14.8 },
+    { category: "アイブロウ", count: 3, amount: 19800, percentage: 10.7 },
+    { category: "オプション", count: 5, amount: 4400, percentage: 2.4 },
+    { category: "オフ", count: 1, amount: 3000, percentage: 1.6 },
+  ],
+  今週: [
+    { category: "まつエク", count: 42, amount: 328000, percentage: 36.8 },
+    { category: "ネイル", count: 38, amount: 298500, percentage: 33.5 },
+    { category: "まつげパーマ", count: 22, amount: 132000, percentage: 14.8 },
+    { category: "アイブロウ", count: 14, amount: 89600, percentage: 10.0 },
+    { category: "オプション", count: 25, amount: 24300, percentage: 2.7 },
+    { category: "オフ", count: 8, amount: 20000, percentage: 2.2 },
+  ],
+  今月: [
+    { category: "まつエク", count: 168, amount: 1278000, percentage: 37.0 },
+    { category: "ネイル", count: 152, amount: 1142000, percentage: 33.0 },
+    { category: "まつげパーマ", count: 85, amount: 510000, percentage: 14.8 },
+    { category: "アイブロウ", count: 58, amount: 368000, percentage: 10.6 },
+    { category: "オプション", count: 95, amount: 89000, percentage: 2.6 },
+    { category: "オフ", count: 28, amount: 69000, percentage: 2.0 },
+  ],
+  カスタム: [
+    { category: "まつエク", count: 9, amount: 68500, percentage: 37.0 },
+    { category: "ネイル", count: 8, amount: 62000, percentage: 33.5 },
+    { category: "まつげパーマ", count: 5, amount: 27500, percentage: 14.8 },
+    { category: "アイブロウ", count: 3, amount: 19800, percentage: 10.7 },
+    { category: "オプション", count: 5, amount: 4400, percentage: 2.4 },
+    { category: "オフ", count: 1, amount: 3000, percentage: 1.6 },
+  ],
+};

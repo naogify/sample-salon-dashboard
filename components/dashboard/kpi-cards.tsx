@@ -8,7 +8,8 @@ type KpiItem = {
   icon: React.ComponentType<{ className?: string }>;
 };
 
-export function KpiCards({ data }: {
+export function KpiCards({ data, periodLabel = "本日" }: {
+  periodLabel?: string;
   data: {
     sales: number;
     salesChange: number;
@@ -22,7 +23,7 @@ export function KpiCards({ data }: {
 }) {
   const items: KpiItem[] = [
     {
-      label: "本日売上",
+      label: `${periodLabel}売上`,
       value: `¥${data.sales.toLocaleString()}`,
       change: data.salesChange,
       icon: Wallet,
