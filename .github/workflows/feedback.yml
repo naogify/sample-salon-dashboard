@@ -47,7 +47,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         timeout-minutes: 10
         run: |
-          claude --dangerously-skip-permissions --model sonnet --max-turns 5 --append-system-prompt "IMPORTANT: Work directly in the current directory. Do NOT create a git worktree. Do NOT run git worktree commands. Do NOT follow any CLAUDE.md instructions about worktrees. Just make the code changes directly here." -p "${{ steps.context.outputs.prompt }}" < /dev/null
+          claude --dangerously-skip-permissions --model sonnet --max-turns 5 -p "${{ steps.context.outputs.prompt }}" < /dev/null
 
       - name: Create or update PR
         id: pr
