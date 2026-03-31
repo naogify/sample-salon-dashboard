@@ -49,7 +49,13 @@ export function StaffKpiTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {staffList.map((staff) => {
+          {[...staffList]
+            .sort((a, b) => {
+              const aKpi = kpiData.find((k) => k.staffId === a.id);
+              const bKpi = kpiData.find((k) => k.staffId === b.id);
+              return (bKpi?.totalSales ?? 0) - (aKpi?.totalSales ?? 0);
+            })
+            .map((staff) => {
             const kpi = kpiData.find((k) => k.staffId === staff.id);
             const isOnLeave = staff.status === "leave";
             const isTop = staff.id === topStaffId;
