@@ -14,7 +14,7 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <PeriodTabs />
       <KpiCards data={dashboardKpi.today} />
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <StaffKpiTable staffList={staffList} kpiData={staffKpiData} />
         <CategorySales data={categorySalesData} />
       </div>

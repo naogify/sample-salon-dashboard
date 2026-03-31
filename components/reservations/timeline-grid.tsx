@@ -12,8 +12,8 @@ export function TimelineGrid({
   const activeStaff = staffList.filter((s) => s.status === "active");
 
   return (
-    <div className="bg-card rounded-xl border border-border overflow-hidden">
-      <div className="grid border-b border-border" style={{ gridTemplateColumns: `160px repeat(${hours.length}, 1fr)` }}>
+    <div className="bg-card rounded-xl border border-border overflow-x-auto">
+      <div className="grid border-b border-border min-w-[800px]" style={{ gridTemplateColumns: `160px repeat(${hours.length}, 1fr)` }}>
         <div className="p-3 border-r border-border bg-muted/50" />
         {hours.map((hour) => (
           <div key={hour} className="p-2 text-center text-xs text-muted-foreground border-r border-border last:border-r-0 bg-muted/50">
@@ -24,7 +24,7 @@ export function TimelineGrid({
       {activeStaff.map((staff) => {
         const staffReservations = reservations.filter((r) => r.staffId === staff.id);
         return (
-          <div key={staff.id} className="grid border-b border-border last:border-b-0" style={{ gridTemplateColumns: `160px 1fr` }}>
+          <div key={staff.id} className="grid border-b border-border last:border-b-0 min-w-[800px]" style={{ gridTemplateColumns: `160px 1fr` }}>
             <div className="p-3 border-r border-border flex flex-col justify-center">
               <span className="font-medium text-sm">{staff.name}</span>
               <Badge variant="secondary" className="text-xs w-fit mt-0.5">{staff.role}</Badge>

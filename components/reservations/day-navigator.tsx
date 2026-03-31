@@ -30,17 +30,17 @@ export function DayNavigator({
   };
 
   return (
-    <div className="flex items-center justify-between mb-4">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
       <div className="flex items-center gap-2">
         <button onClick={prev} className="p-1.5 rounded-lg hover:bg-muted transition-colors">
           <ChevronLeft className="h-5 w-5" />
         </button>
-        <span className="text-lg font-bold min-w-48 text-center">{formatDate(date)}</span>
+        <span className="text-base sm:text-lg font-bold min-w-40 sm:min-w-48 text-center">{formatDate(date)}</span>
         <button onClick={next} className="p-1.5 rounded-lg hover:bg-muted transition-colors">
           <ChevronRight className="h-5 w-5" />
         </button>
       </div>
-      <Button onClick={onNewReservation} className="gap-1">
+      <Button onClick={onNewReservation} className="gap-1 w-full sm:w-auto">
         <Plus className="h-4 w-4" />
         新規予約
       </Button>
