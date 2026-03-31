@@ -70,6 +70,11 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
             echo "has_changes=false" >> $GITHUB_OUTPUT
+            # Notify Workers that no changes were needed
+            curl -s -X POST "${{ secrets.WORKERS_URL }}/api/notify" \
+              -H "Content-Type: application/json" \
+              -H "x-notify-secret: ${{ secrets.NOTIFY_SECRET }}" \
+              -d "{\"type\":\"no_changes\",\"issueNumber\":${ISSUE_NUMBER}}"
             exit 0
           fi
           git commit -m "Apply feedback from issue #${ISSUE_NUMBER}"
