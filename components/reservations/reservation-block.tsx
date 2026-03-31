@@ -29,20 +29,23 @@ export function ReservationBlock({
 
   return (
     <div
-      className="absolute top-1 bottom-1 rounded-lg px-2 py-1 text-xs overflow-hidden cursor-pointer hover:opacity-90 transition-opacity border-l-4"
+      className="absolute top-1 bottom-1 rounded-lg px-2 py-1.5 text-xs overflow-hidden cursor-pointer hover:opacity-90 transition-opacity border-l-4 flex flex-col justify-between"
       style={{
         left: `${leftPercent}%`, width: `${widthPercent}%`,
-        backgroundColor: `${SOURCE_COLORS[reservation.source]}15`,
+        backgroundColor: `${SOURCE_COLORS[reservation.source]}20`,
         borderLeftColor: SOURCE_COLORS[reservation.source],
       }}
     >
-      <div className="flex items-center gap-1 truncate">
-        <span className="font-medium truncate">{customer?.name ?? "不明"}</span>
-        <Badge className={cn("text-[10px] px-1 py-0 h-4 shrink-0", statusColors[reservation.status])}>
+      <div className="flex items-center gap-1 min-w-0">
+        <span className="font-semibold truncate text-[13px] leading-tight">{customer?.name ?? "不明"}</span>
+        <Badge className={cn("text-[10px] px-1.5 py-0 h-4 shrink-0 font-medium", statusColors[reservation.status])}>
           {RESERVATION_STATUS_LABELS[reservation.status]}
         </Badge>
       </div>
-      <div className="text-muted-foreground truncate">{menuNames}</div>
+      <div className="text-muted-foreground truncate leading-tight">{menuNames}</div>
+      <div className="font-medium tabular-nums" style={{ color: SOURCE_COLORS[reservation.source] }}>
+        {reservation.startTime}–{reservation.endTime}
+      </div>
     </div>
   );
 }

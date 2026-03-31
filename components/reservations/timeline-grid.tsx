@@ -29,7 +29,7 @@ export function TimelineGrid({
               <span className="font-medium text-sm">{staff.name}</span>
               <Badge variant="secondary" className="text-xs w-fit mt-0.5">{staff.role}</Badge>
             </div>
-            <div className="relative h-16">
+            <div className="relative h-24">
               <div className="absolute inset-0 grid" style={{ gridTemplateColumns: `repeat(${hours.length}, 1fr)` }}>
                 {hours.map((hour) => (<div key={hour} className="border-r border-border/50 last:border-r-0" />))}
               </div>
