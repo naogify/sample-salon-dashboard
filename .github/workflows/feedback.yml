@@ -44,8 +44,9 @@ jobs:
       - name: Run Claude Code
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        timeout-minutes: 5
         run: |
-          claude --dangerously-skip-permissions --bare -p "${{ steps.context.outputs.prompt }}" < /dev/null
+          claude --dangerously-skip-permissions --bare --max-turns 10 -p "${{ steps.context.outputs.prompt }}" < /dev/null
 
       - name: Create or update PR
         env:
