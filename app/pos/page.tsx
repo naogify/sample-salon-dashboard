@@ -36,13 +36,13 @@ export default function PosPage() {
   };
 
   return (
-    <div className="flex gap-6 h-[calc(100vh-64px-48px)]">
-      <div className="flex-[1.2] overflow-y-auto">
+    <div className="flex flex-col md:flex-row gap-6 md:h-[calc(100vh-64px-48px)]">
+      <div className="md:flex-[1.2] overflow-y-auto">
         <MenuSearch value={search} onChange={setSearch} />
         <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
         <MenuGrid items={filteredItems} onAdd={addToCart} />
       </div>
-      <div className="flex-[0.8] bg-muted/30 rounded-xl p-4 border border-border">
+      <div className="md:flex-[0.8] bg-muted/30 rounded-xl p-4 border border-border">
         <Cart items={cartItems} staffList={staffList} onRemove={removeFromCart} />
       </div>
     </div>

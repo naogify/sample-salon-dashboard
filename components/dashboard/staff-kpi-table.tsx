@@ -35,6 +35,7 @@ export function StaffKpiTable({
   return (
     <div className="bg-card rounded-xl border border-border p-5">
       <h3 className="text-base font-bold mb-4">スタッフ別KPI</h3>
+      <div className="overflow-x-auto -mx-5 px-5">
       <Table>
         <TableHeader>
           <TableRow>
@@ -111,6 +112,7 @@ export function StaffKpiTable({
           })}
         </TableBody>
       </Table>
+      </div>
     </div>
   );
 }

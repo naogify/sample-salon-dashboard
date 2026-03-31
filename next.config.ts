@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const isGhPages = process.env.GITHUB_ACTIONS === "true";
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ['*.ngrok-free.dev', '*.ngrok.io'],
+  allowedDevOrigins: ['intimate-email-emma-someone.trycloudflare.com'],
   output: "export",
   basePath: isGhPages ? "/sample-salon-dashboard" : "",
   images: {
