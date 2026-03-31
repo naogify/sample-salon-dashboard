@@ -69,6 +69,24 @@ export const menuItems: MenuItem[] = [
 
 export const customers: Customer[] = [
   {
+    id: "cust-9",
+    name: "木村 あおい",
+    nameKana: "キムラ アオイ",
+    phone: "090-9012-3456",
+    source: "hotpepper",
+    visitCount: 1,
+    lastVisit: "2026-03-31",
+  },
+  {
+    id: "cust-10",
+    name: "松田 ほのか",
+    nameKana: "マツダ ホノカ",
+    phone: "090-0123-4567",
+    source: "google",
+    visitCount: 1,
+    lastVisit: "2026-03-25",
+  },
+  {
     id: "cust-1",
     name: "山田 美咲",
     nameKana: "ヤマダ ミサキ",
