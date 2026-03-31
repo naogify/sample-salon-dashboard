@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const isGhPages = process.env.GITHUB_ACTIONS === "true";
+const isGhPages = process.env.DEPLOY_TARGET === "gh-pages";
 
 const nextConfig: NextConfig = {
   output: "export",
