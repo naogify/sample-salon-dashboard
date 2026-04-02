@@ -40,7 +40,7 @@ export default function PosPage() {
       <div className="md:flex-[1.2] overflow-y-auto">
         <MenuSearch value={search} onChange={setSearch} />
         <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
-        <MenuGrid items={filteredItems} onAdd={addToCart} />
+        <MenuGrid items={filteredItems} onAdd={addToCart} cartItems={cartItems} />
       </div>
       <div className="md:flex-[0.8] bg-muted/30 rounded-xl p-4 border border-border">
         <Cart items={cartItems} staffList={staffList} onRemove={removeFromCart} />
