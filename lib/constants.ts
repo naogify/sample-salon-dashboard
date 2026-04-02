@@ -42,5 +42,12 @@ export const NAV_ITEMS = [
   { href: "/settings", label: "設定", icon: "Settings" },
 ] as const;
 
+export const STORES = [
+  { id: "all", name: "全店舗" },
+  { id: "store-1", name: "渋谷店" },
+  { id: "store-2", name: "新宿店" },
+  { id: "store-3", name: "池袋店" },
+] as const;
+
 export const TIMELINE_START_HOUR = 9;
 export const TIMELINE_END_HOUR = 18;
