@@ -17,6 +17,7 @@ import {
   Phone,
   Search,
   Star,
+  AlertTriangle,
 } from "lucide-react";
 
 type SortKey = "name" | "visitCount" | "lastVisit";
@@ -104,6 +105,21 @@ function daysAgo(dateStr: string) {
   if (diff <= 7) return `${diff}日前`;
   if (diff <= 30) return `${Math.floor(diff / 7)}週間前`;
   return `${Math.floor(diff / 30)}ヶ月前`;
+}
+
+function getActivityStatus(lastVisit: string): {
+  label: string;
+  color: string;
+  dotColor: string;
+} {
+  const now = new Date();
+  const d = new Date(lastVisit);
+  const diff = Math.floor(
+    (now.getTime() - d.getTime()) / (1000 * 60 * 60 * 24),
+  );
+  if (diff <= 14) return { label: "アクティブ", color: "text-emerald-600 bg-emerald-50", dotColor: "bg-emerald-500" };
+  if (diff <= 45) return { label: "通常", color: "text-blue-600 bg-blue-50", dotColor: "bg-blue-500" };
+  return { label: "休眠", color: "text-amber-600 bg-amber-50", dotColor: "bg-amber-500" };
 }
 
 function VisitBar({ count, max }: { count: number; max: number }) {

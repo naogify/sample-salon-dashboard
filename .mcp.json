@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "shadcn-ui": {
-      "command": "npx",
-      "args": ["-y", "@anthropic-ai/shadcn-mcp-server@latest"]
-    }
-  }
-}
