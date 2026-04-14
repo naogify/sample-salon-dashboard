@@ -20,7 +20,14 @@ export function Cart({ items, staffList, onRemove }: {
       <div className="mb-3">
         <label className="text-xs text-muted-foreground mb-1 block">担当スタッフ</label>
         <Select>
-          <SelectTrigger><SelectValue placeholder="選択してください" /></SelectTrigger>
+          <SelectTrigger>
+            <SelectValue placeholder="選択してください">
+              {(value: string) => {
+                const staff = activeStaff.find((s) => s.id === value);
+                return staff ? `${staff.name}（${staff.role}）` : null;
+              }}
+            </SelectValue>
+          </SelectTrigger>
           <SelectContent>
             {activeStaff.map((staff) => (
               <SelectItem key={staff.id} value={staff.id} label={`${staff.name}（${staff.role}）`}>{staff.name}（{staff.role}）</SelectItem>
